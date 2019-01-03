@@ -14,3 +14,25 @@ end
 get '/visit' do
 	erb :visit
 end
+
+get '/contacts' do
+  erb :contacts
+end
+
+post '/visit' do
+	@username = params[:username]
+	@phone = params[:phone]
+	@datatime = params[:datetime]
+	@barber = params[:barber]
+
+	erb "OK, username is #{@username}, #{@phone}, #{@datetime}, #{@barber}."
+end
+
+if @username==''
+	@error='Ошибка: Введите имя!'
+	return erb :index
+end
+
+#if @error !=''
+#	return erb :index
+#end
