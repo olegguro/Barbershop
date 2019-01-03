@@ -4,7 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+	erb "<h3>Добро пожаловать на наш интернет салон Barber Shop</h3>"
 end
 
 get '/about' do
