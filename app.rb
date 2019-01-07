@@ -31,20 +31,21 @@ post '/visit' do
 		   :phone => 'Ошибка: Введите номер телефона!',
 		   :datetime => 'Ошибка: Введите время и дату!'}
 
-	# для каждой пары ключ-значение
-	hh.each do |key, value|
-		#если параметр пуст, то присвоить error - value из хеша hh,
-		#а value из хеша hh это сообщение об ошибке 
-		# т.е. переменной error присвоить сообщение об ошибке
-		if params[key] ==''
-			@error = hh[key]
+	## для каждой пары ключ-значение
+	#hh.each do |key, value|
+	#	#если параметр пуст, то присвоить error - value из хеша hh,
+	#	#а value из хеша hh это сообщение об ошибке 
+	#	# т.е. переменной error присвоить сообщение об ошибке
+	#	if params[key] ==''
+	#		@error = hh[key]
+	#	return erb :visit
+	#	end
+	@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
+
+	if @error !=''
 		return erb :visit
-		end
 	end
 
 erb "OK, username is #{@username}, #{@phone}, #{@datetime}, #{@barber}, #{@color}."
 
 end
-#if @error !=''
-#	return erb :index
-#end
