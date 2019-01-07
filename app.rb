@@ -23,15 +23,35 @@ end
 post '/visit' do
 	@username = params[:username]
 	@phone = params[:phone]
-	@datatime = params[:datetime]
+	@datetime = params[:datetime]
 	@barber = params[:barber]
 	@color = params[:color]
 
 	
 	if @username == ''
 	@error = 'Ошибка: Введите имя!'
-	return erb :index
-end
+	return erb :visit
+	end
+	
+	if @phone == ''
+	@error = 'Ошибка: Введите номер телефона!'
+	return erb :visit
+	end
+	
+	if @datetime == ''
+	@error = 'Ошибка: Неправильная дата и время!'
+	return erb :visit
+	end
+	
+	if @barber == ''
+	@error = 'Ошибка: Выберите парикмахера!'
+	return erb :visit
+	end
+
+	if @color == ''
+	@error = 'Ошибка: Выберите цвет!'
+	return erb :visit
+	end
 
 erb "OK, username is #{@username}, #{@phone}, #{@datetime}, #{@barber}, #{@color}."
 
