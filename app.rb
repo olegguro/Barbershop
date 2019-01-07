@@ -8,6 +8,7 @@ get '/' do
 end
 
 get '/about' do
+	@error = 'something wrong'
 	erb :about
 end
 
@@ -26,14 +27,15 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 
-	erb "OK, username is #{@username}, #{@phone}, #{@datetime}, #{@barber}, #{@color}."
-end
-
-if @username==''
-	@error='Ошибка: Введите имя!'
+	
+	if @username == ''
+	@error = 'Ошибка: Введите имя!'
 	return erb :index
 end
 
+erb "OK, username is #{@username}, #{@phone}, #{@datetime}, #{@barber}, #{@color}."
+
+end
 #if @error !=''
 #	return erb :index
 #end
