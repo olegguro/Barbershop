@@ -8,7 +8,7 @@ get '/' do
 end
 
 get '/about' do
-	@error = 'something wrong'
+	@error = 'Страница находится в разработке'
 	erb :about
 end
 
@@ -27,9 +27,9 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 
-	hh = { :username =>'Ошибка: Введите имя!', 
-		   :phone => 'Ошибка: Введите номер телефона!',
-		   :datetime => 'Ошибка: Введите время и дату!'}
+	hh = { :username =>'Введите имя!', 
+		   :phone => 'Введите номер телефона!',
+		   :datetime => 'Введите время и дату!'}
 
 	## для каждой пары ключ-значение
 	#hh.each do |key, value|
@@ -46,6 +46,7 @@ post '/visit' do
 		return erb :visit
 	end
 
-erb "OK, username is #{@username}, #{@phone}, #{@datetime}, #{@barber}, #{@color}."
+erb "Благодарим Вас, мы записали Вас #{@username}, #{@phone}, на #{@datetime},
+Ваш парикмахер #{@barber}, цвет окраски #{@color}."
 
 end
