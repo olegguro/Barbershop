@@ -2,6 +2,22 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sqlite3'
+
+configure do
+	#создается подключение к БД и ее выполнение
+	db = SQLite3::Database.new 'barbershop.db'
+	db.execute 'CREATE TABLE IF NOT EXISTS
+		"Users"
+		(
+			"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+			"username" TEXT,
+			"phone" TEXT,
+			"datetime" TEXT,
+			"barber" TEXT,
+			"color" TEXT
+			)'	
+end
 
 get '/' do
 	erb "<h3>Добро пожаловать на наш интернет салон Barber Shop</h3>"
