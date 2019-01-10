@@ -4,16 +4,23 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
-configure do
-	#создается подключение к БД и ее выполнение
+def get_db
 	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
+end
+
+#создается подключение к БД и ее выполнение
+# код вызывается при инициализации приложения (когда мы изменили код) 
+configure do	
+	db = get_db
 	db.execute 'CREATE TABLE IF NOT EXISTS
 		"Users"
 		(
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT,
 			"username" TEXT,
 			"phone" TEXT,
-			"datetime" TEXT,
+			"datestamp" TEXT,
 			"barber" TEXT,
 			"color" TEXT
 			)'	
@@ -37,12 +44,14 @@ get '/contacts' do
 end
 
 post '/visit' do
+	
 	@username = params[:username]
 	@phone = params[:phone]
 	@datetime = params[:datetime]
 	@barber = params[:barber]
 	@color = params[:color]
 
+	#хеш
 	hh = { :username =>'Введите имя!', 
 		   :phone => 'Введите номер телефона!',
 		   :datetime => 'Введите время и дату!'}
@@ -62,7 +71,23 @@ post '/visit' do
 		return erb :visit
 	end
 
-erb "Благодарим Вас, мы записали Вас #{@username}, #{@phone}, на #{@datetime},
-Ваш парикмахер #{@barber}, цвет окраски #{@color}."
+	#выполнении БД и ее передача в виде массива
+	db = get_db 
+	db.execute 'Insert into Users 
+	(
+		username, 
+		phone, 
+		datestamp, 
+		barber, 
+		color
+	) 
+	values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
 
+	erb "Благодарим Вас, мы записали Вас #{@username}, #{@phone}, на #{@datetime},
+	Ваш парикмахер #{@barber}, цвет окраски #{@color}."
+
+end
+
+get '/showusers' do
+	erb "Hello"
 end
