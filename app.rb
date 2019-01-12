@@ -22,6 +22,11 @@ def get_db
 	return db
 end
 
+before do
+	db = get_db
+	@barbers = db.execute 'select * from Barbers'
+end
+
 #создается подключение к БД и ее выполнение
 # код вызывается при инициализации приложения (когда мы изменили код) 
 configure do	
