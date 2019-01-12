@@ -110,8 +110,7 @@ post '/visit' do
 	) 
 	values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
 
-	erb "Благодарим Вас, мы записали Вас #{@username}, #{@phone}, на #{@datetime},
-	Ваш парикмахер #{@barber}, цвет окраски #{@color}."
+	erb "<h2>Благодарим Вас, Вы записались <h2>"
 
 end
 
