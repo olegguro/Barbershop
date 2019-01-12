@@ -5,13 +5,14 @@ require 'sinatra/reloader'
 require 'sqlite3'
 
 def is_barber_exists? db, name
-	db.execute ('select * from Barbers where name=?', [name]).lenght > 0
+	db.execute('Select * from Barbers where name=?', [name]).length > 0
 end
 
 def seed_db db, barbers 
 	barbers.each do |barber|
-	if !is_barbers_exists? db, barber
-			db.execute 'insert into Barbers (name) values (?)', [barber]
+		if !is_barber_exists? db, barber
+			db.execute 'Insert into Barbers (name) values (?)', [barber]
+		end
 	end	 
 end
 
@@ -42,8 +43,8 @@ configure do
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT,
 			"name" TEXT
 			)'	
-	seed_db, ['Jessie Pinkman', 'Walter White', 'Gus Fring', 'John Middle', 
-		'Sarah Connor', 'Mike Ehrmantraut']
+	seed_db db, ['Jessie Pinkman', 'Walter White', 'Gus Fring', 'John Middle', 
+		'Sarah Connor']
 
 end
 
@@ -72,7 +73,7 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 
-	#хеш
+	#хешcd ~/.ssh
 	hh = { :username =>'Введите имя!', 
 		   :phone => 'Введите номер телефона!',
 		   :datetime => 'Введите время и дату!'}
@@ -112,7 +113,7 @@ end
 get '/showusers' do
 	db = get_db
 	
-	@results = db.execute 'select * from Users order by id desc'
+	@results = db.execute 'Select * from Users order by id desc'
 
 	erb :showusers
 end
